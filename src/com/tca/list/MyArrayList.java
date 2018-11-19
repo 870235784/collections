@@ -1,0 +1,195 @@
+package com.tca.list;
+
+import java.util.Iterator;
+
+public class MyArrayList<T>{
+	
+	private Object[] elementData;// 用于存放实际数据
+	
+	private int size;// 用于记录实际存放的数据量
+	
+	/**
+	 * 无参构造器
+	 */
+	public MyArrayList() {
+		this(10); // 默认容量为10
+	}
+	
+	/**
+	 * 含参构造器
+	 * @param size
+	 */
+	public MyArrayList(int size) {
+		this.elementData = new Object[size];
+	}
+	
+	/**
+	 * 添加元素(默认在最后位置添加)
+	 * @param e
+	 * @return
+	 */
+	public boolean add(T e) {
+		// 判断当前数组是否已满, 如果已满, 则进行扩容(每次扩容为之前的1.5倍)
+		checkAndExpansion();
+		
+		// 将元素添加到最后一位
+		this.elementData[size++] = e;
+		
+		return true;
+	}
+	
+	
+	/**
+	 * 检验当前数组是否已满，如果已满，则进行扩容，每次扩容为之前的1.5倍+1
+	 * 	+1 是为了避免原数组长度为0
+	 */
+	private void checkAndExpansion() {
+		int length = elementData.length; // 表示数组容量已满
+		if (length == size) {
+			Object[] newElementData = new Object[length + length >> 1 + 1];
+			System.arraycopy(elementData, 0, newElementData, 0, length);
+			this.elementData = newElementData;
+		}
+	}
+	
+	/**
+	 * 返回列表已使用容量
+	 * @return
+	 */
+	public int size() {
+		return size;
+	}
+	
+	/**
+	 * 判断列表是否为空(已使用容量为0)
+	 * @return
+	 */
+	public boolean isEmpty() {
+		return size == 0;
+	}
+	
+	/**
+	 * 判断集合中是否包含元素o
+	 * 	1. o为null时, 直接判断
+	 * 	2. o不为null时, 根据equals方法判断
+	 */
+	public boolean contains(Object o) {
+		if (o == null) {
+			for (int i = 0; i < size; i++) {
+				if (this.elementData[i] == null) {
+					return true;
+				}
+			}
+		} else {
+			for (int i = 0; i < size; i++) {
+				if (o.equals(this.elementData[i])) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	
+	/**
+	 * 删除某个元素
+	 * 	true: 删除成功
+	 * 	false: 删除失败
+	 */
+	public boolean remove(Object o) {
+		if (o == null) {
+			for (int i = 0; i < size; i++) {
+				if (this.elementData[i] == null) {
+					System.arraycopy(elementData, i + 1, elementData, i, size - i - 1);
+					this.elementData[--size] = null;
+					return true;
+				}
+			}
+		} else {
+			for (int i = 0; i < size; i++) {
+				if (o.equals(this.elementData[i])) {
+					System.arraycopy(elementData, i + 1, elementData, i, size - i - 1);
+					this.elementData[--size] = null;
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * 清空实际存储数据
+	 */
+	public void clear() {
+		for (int i = 0; i < this.size; i++) {
+			this.elementData[i] = null;
+		}
+		this.size = 0;
+	}
+	
+	/**
+	 * 根据索引获取元素
+	 * @param index
+	 * @return
+	 */
+	public T get(int index) {
+		// 判断索引是否越界
+		checkIndex(index);
+		return (T) this.elementData[index];
+	}
+	
+	/**
+	 * 判断索引是否越界
+	 * @param index
+	 */
+	private void checkIndex(int index) {
+		if (index < 0 || index >= size) {
+			throw new RuntimeException("index out of bounds: size = " + size + " , index = " + index);
+		}
+	}
+	
+	/**
+	 * 修改某个索引位置的值为element, 并返回原来的值
+	 * @param index
+	 * @param element
+	 * @return
+	 */
+	public T set(int index, T element) {
+		// 判断索引是否越界
+		checkIndex(index);
+		T oldValue = (T) this.elementData[index];
+		this.elementData[index] = element;
+		return oldValue;
+	}
+	
+	/**
+	 * 在index位置后插入元素element
+	 * @param index
+	 * @param element
+	 */
+	public void add(int index, T element) {
+		
+	}
+
+	public T remove(int index) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public int indexOf(Object o) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public int lastIndexOf(Object o) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	public Iterator<T> iterator() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+}

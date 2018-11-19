@@ -1,5 +1,7 @@
 package com.tca.list.test;
 
+import java.util.Iterator;
+
 import org.junit.Test;
 
 import com.tca.list.MyArrayList;
@@ -47,5 +49,12 @@ public class MyArrayListTest {
 		//set
 		list.set(1, "a");
 		System.out.println(list);
+		
+		//foreach
+		Iterator<String> iterator = list.iterator();
+		while (iterator.hasNext()) {
+			String element = iterator.next();
+			System.out.println(element);
+		}
 	}
 }

@@ -238,7 +238,24 @@ public class MyArrayList<T>{
 	
 	public Iterator<T> iterator() {
 		// TODO Auto-generated method stub
-		return null;
+		return new Iterator<T>() {
+			
+			private int consor;
+
+			@Override
+			public boolean hasNext() {
+				return consor != size;
+			}
+
+			@Override
+			public T next() {
+				if (consor >= size || consor >= elementData.length) {
+					throw new RuntimeException("no such element");
+				}
+				return (T) elementData[consor++];
+			}
+			
+		};
 	}
 	
 	@Override

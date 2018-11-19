@@ -1,5 +1,6 @@
 package com.tca.list;
 
+import java.util.Arrays;
 import java.util.Iterator;
 
 public class MyArrayList<T>{
@@ -168,27 +169,91 @@ public class MyArrayList<T>{
 	 * @param element
 	 */
 	public void add(int index, T element) {
+		// 判断索引是否越界
+		checkIndex(index);
 		
+		// 判断是否需要扩容
+		checkAndExpansion();
+		
+		System.arraycopy(elementData, index + 1, elementData, index + 2, size - index -1);
+		this.elementData[index + 1] = element;
+		size++;
 	}
-
+	
+	/**
+	 * 根据索引移除元素, 返回移除的元素
+	 * @param index
+	 * @return
+	 */
 	public T remove(int index) {
-		// TODO Auto-generated method stub
-		return null;
+		T oldValue = get(index);
+		System.arraycopy(elementData, index + 1, elementData, index, size - index -1);
+		size--;
+		return oldValue;
 	}
-
+	
+	/**
+	 * 元素第一次出现的索引
+	 * @param o
+	 * @return
+	 */
 	public int indexOf(Object o) {
-		// TODO Auto-generated method stub
-		return 0;
+		if (o == null) {
+			for (int i = 0; i < size; i++) {
+				if (this.elementData[i] == null) {
+					return i;
+				}
+			}
+		} else {
+			for (int i = 0; i < size; i++) {
+				if (o.equals(this.elementData[i])) {
+					return i;
+				}
+			}
+		}
+		return -1;
 	}
-
+	
+	/**
+	 * 元素最后一次出现的位置
+	 * @param o
+	 * @return
+	 */
 	public int lastIndexOf(Object o) {
-		// TODO Auto-generated method stub
-		return 0;
+		if (o == null) {
+			for (int i = size-1; i >= 0; i--) {
+				if (this.elementData[i] == null) {
+					return i;
+				}
+			}
+		} else {
+			for (int i = size-1; i >= 0; i--) {
+				if (o.equals(this.elementData[i])) {
+					return i;
+				}
+			}
+		}
+		return -1;
 	}
 	
 	public Iterator<T> iterator() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	@Override
+	public String toString() {
+		StringBuffer sb = new StringBuffer();
+		sb.append("[");
+		if (size > 0) {
+			for (int i = 0; i < size - 1; i++) {
+				sb.append(elementData[i].toString());
+				sb.append(", ");
+			}
+			sb.append(elementData[size - 1]);
+		}
+		sb.append("]");
+		return sb.toString();
 	}
 
 	

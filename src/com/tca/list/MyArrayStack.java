@@ -111,7 +111,7 @@ public class MyArrayStack<T> {
 	}
 	
 	/**
-	 * 第一个位置为栈底
+	 * 第一个位置为栈顶
 	 */
 	@Override
 	public String toString() {

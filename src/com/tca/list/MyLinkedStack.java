@@ -1,7 +1,7 @@
 package com.tca.list;
 
 /**
- * 底层是单向链表的栈, 只能以头节点作为top, 栈大小有限
+ * 底层是单向链表的栈, 只能以头节点作为top, 有限栈
  * @author zhoua
  *
  * @param <T>

@@ -5,10 +5,10 @@ import java.util.Iterator;
 public class MyLinkedList<T> {
 	
 	// 存储头节点
-	private Node first;
+	private Node<T> first;
 	
 	// 存储尾节点
-	private Node last;
+	private Node<T> last;
 	
 	// 节点数
 	private int size;
@@ -20,17 +20,15 @@ public class MyLinkedList<T> {
 	
 	// 节点类
 	private static class Node<T> {
-		private Node pre;
+		private Node<T> pre;
 		T value;
-		private Node next;
-		
-		Node(){}
+		private Node<T> next;
 		
 		Node(T value) {
 			this.value = value;
 		}
 		
-		Node(Node pre,T value, Node next) {
+		Node(Node<T> pre,T value, Node<T> next) {
 			this.pre = pre;
 			this.value = value;
 			this.next = next;
@@ -53,13 +51,13 @@ public class MyLinkedList<T> {
 	public boolean add(T e) {
 		// 判断当前链表是否为空
 		if (isEmpty()) {
-			first = last = new Node(e);
+			first = last = new Node<T>(e);
 			size ++;
 			return true;
 		}
 		
 		// 新建一个节点(该节点的前一个节点指向last节点)
-		Node node = new Node(last, e, null);
+		Node<T> node = new Node<T>(last, e, null);
 		
 		// 将节点放在最后位置
 		last.next = node;
@@ -92,13 +90,13 @@ public class MyLinkedList<T> {
 	 */
 	public boolean contains(Object o) {
 		if (o == null) {
-			for (Node node = first; node != null; node = node.next) {
+			for (Node<T> node = first; node != null; node = node.next) {
 				if (node.value == null) {
 					return true;
 				}
 			}
 		} else {
-			for (Node node = first; node != null; node = node.next) {
+			for (Node<T> node = first; node != null; node = node.next) {
 				if (o.equals(node.value)) {
 					return true;
 				}
@@ -115,7 +113,7 @@ public class MyLinkedList<T> {
 	 */
 	public boolean remove(Object o) {
 		if (o == null) {
-			for (Node node = first; node != null; node = node.next) {
+			for (Node<T> node = first; node != null; node = node.next) {
 				if (node.value == null) {
 					// 判断是否是头节点
 					if (node == first) {// 是:直接让first指向该节点的next节点
@@ -136,7 +134,7 @@ public class MyLinkedList<T> {
 				}
 			}
 		} else {
-			for (Node node = first; node != null; node = node.next) {
+			for (Node<T> node = first; node != null; node = node.next) {
 				if (o.equals(node.value)) {
 					// 判断是否是头节点
 					if (node == first) {// 是:直接让first指向该节点的next节点
@@ -164,7 +162,7 @@ public class MyLinkedList<T> {
 	 * 清空实际存储数据
 	 */
 	public void clear() {
-		for (Node node = first; node != null; node = node.next) {
+		for (Node<T> node = first; node != null; node = node.next) {
 			node.free();
 		}
 		first = last = null;
@@ -176,18 +174,17 @@ public class MyLinkedList<T> {
 	 * @param index
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
 	public T get(int index) {
 		checkIndex(index);
 		boolean flag = index < size/2;
 		if (flag) {
-			Node node = first;
+			Node<T> node = first;
 			for (int i = 1; i <= index; i++) {
 				node = node.next;
 			}
 			return (T) node.value;
 		} 
-		Node node = last;
+		Node<T> node = last;
 		for (int i = size - 1; i > index; i--) {
 			node = node.pre;
 		}
@@ -210,13 +207,12 @@ public class MyLinkedList<T> {
 	 * @param element
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
 	public T set(int index, T element) {
 		// 判断索引是否越界
 		checkIndex(index);
 		
 		// 查找到index位置的Node节点
-		Node node;
+		Node<T> node;
 		boolean flag = index < size/2;
 		if (flag) {
 			node = first;
@@ -241,6 +237,7 @@ public class MyLinkedList<T> {
 	 * @param index
 	 * @param element
 	 */
+	@SuppressWarnings("unused")
 	public void add(int index, T element) {
 		// 判断索引是否越界
 		if (index < 0 || index > size) {
@@ -249,14 +246,14 @@ public class MyLinkedList<T> {
 		
 		// 判断当前链表是否为空
 		if (isEmpty()) {
-			first = last = new Node(element);
+			first = last = new Node<T>(element);
 			size ++;
 			return;
 		}
 		
 		// 查找到对应位置的元素
 		boolean flag = index < size/2;
-		Node node;
+		Node<T> node;
 		if (flag) {
 			node = first;
 			for (int i = 1; i <= index; i++) {
@@ -270,7 +267,7 @@ public class MyLinkedList<T> {
 		}
 		
 		// 在该元素的前位置插入元素
-		Node newNode = new Node(node.pre, element, node);
+		Node<T> newNode = new Node<T>(node.pre, element, node);
 		if (node.pre == null) {// 如果插入头位置
 			first = newNode;
 		} else {
@@ -302,7 +299,7 @@ public class MyLinkedList<T> {
 		}
 		
 		// 查找到index位置的Node节点
-		Node node;
+		Node<T> node;
 		boolean flag = index < size/2;
 		if (flag) {
 			node = first;
@@ -342,7 +339,7 @@ public class MyLinkedList<T> {
 	 * @return
 	 */
 	public int indexOf(Object o) {
-		Node node = first;
+		Node<T> node = first;
 		if (o == null) {
 			for (int i = 0; i < size; i++) {
 				if (node.value == null) {
@@ -367,7 +364,7 @@ public class MyLinkedList<T> {
 	 * @return
 	 */
 	public int lastIndexOf(Object o) {
-		Node node = last;
+		Node<T> node = last;
 		if (o == null) {
 			for (int i = size-1; i >= 0; i--) {
 				if (node.value == null) {
@@ -390,14 +387,13 @@ public class MyLinkedList<T> {
 		// TODO Auto-generated method stub
 		return new Iterator<T>() {
 			
-			private Node consor = first;
+			private Node<T> consor = first;
 
 			@Override
 			public boolean hasNext() {
 				return consor != null;
 			}
 
-			@SuppressWarnings("unchecked")
 			@Override
 			public T next() {
 				if (consor != last && consor.next == null) {
@@ -414,7 +410,7 @@ public class MyLinkedList<T> {
 	@Override
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
-		Node node = first;
+		Node<T> node = first;
 		sb.append("[");
 		if (size > 0) {
 			for (int i = 0; i < size - 1; i++) {

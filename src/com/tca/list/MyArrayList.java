@@ -1,11 +1,10 @@
 package com.tca.list;
 
-import java.util.Arrays;
 import java.util.Iterator;
 
 public class MyArrayList<T>{
 	
-	private Object[] elementData;// 用于存放实际数据
+	private transient Object[] elementData;// 用于存放实际数据
 	
 	private int size;// 用于记录实际存放的数据量
 	
@@ -133,6 +132,7 @@ public class MyArrayList<T>{
 	 * @param index
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	public T get(int index) {
 		// 判断索引是否越界
 		checkIndex(index);
@@ -155,6 +155,7 @@ public class MyArrayList<T>{
 	 * @param element
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	public T set(int index, T element) {
 		// 判断索引是否越界
 		checkIndex(index);
@@ -164,19 +165,21 @@ public class MyArrayList<T>{
 	}
 	
 	/**
-	 * 在index位置后插入元素element
+	 * 在index位置插入元素element
 	 * @param index
 	 * @param element
 	 */
 	public void add(int index, T element) {
 		// 判断索引是否越界
-		checkIndex(index);
+		if (index < 0 || index > size) {
+			throw new RuntimeException("index out of bounds: size = " + size + " , index = " + index);
+		}
 		
 		// 判断是否需要扩容
 		checkAndExpansion();
 		
-		System.arraycopy(elementData, index + 1, elementData, index + 2, size - index -1);
-		this.elementData[index + 1] = element;
+		System.arraycopy(elementData, index, elementData, index + 1, size - index);
+		this.elementData[index] = element;
 		size++;
 	}
 	
@@ -247,6 +250,7 @@ public class MyArrayList<T>{
 				return consor != size;
 			}
 
+			@SuppressWarnings("unchecked")
 			@Override
 			public T next() {
 				if (consor >= size || consor >= elementData.length) {

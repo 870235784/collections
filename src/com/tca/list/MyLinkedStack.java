@@ -112,8 +112,8 @@ public class MyLinkedStack<T> {
 			throw new RuntimeException("stack is empty");
 		}
 		// 使用新节点指向原先的top, 获取值后, 再释放, 便于垃圾回收
-		Node node = top;
-		T value = (T) node.value;
+		Node<T> node = top;
+		T value = node.value;
 		top = top.next;
 		node.free();
 		size--;

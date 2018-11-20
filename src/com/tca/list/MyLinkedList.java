@@ -182,13 +182,13 @@ public class MyLinkedList<T> {
 			for (int i = 1; i <= index; i++) {
 				node = node.next;
 			}
-			return (T) node.value;
+			return node.value;
 		} 
 		Node<T> node = last;
 		for (int i = size - 1; i > index; i--) {
 			node = node.pre;
 		}
-		return (T) node.value;
+		return node.value;
 	}
 	
 	/**
@@ -227,7 +227,7 @@ public class MyLinkedList<T> {
 		}
 		
 		// 更新value并返回原value
-		T oldValue = (T) node.value;
+		T oldValue = node.value;
 		node.value = element;
 		return oldValue;
 	}
@@ -313,7 +313,7 @@ public class MyLinkedList<T> {
 			}
 		}
 		
-		T oldValue = (T) node.value;
+		T oldValue = node.value;
 		
 		// 移除元素
 		if (node.pre == null) {// 如果移除的是first
@@ -399,7 +399,7 @@ public class MyLinkedList<T> {
 				if (consor != last && consor.next == null) {
 					throw new RuntimeException("no such element");
 				}
-				T value = (T) consor.value;
+				T value = consor.value;
 				consor = consor.next;
 				return value;
 			}

@@ -20,6 +20,9 @@ public class MyArrayList<T>{
 	 * @param size
 	 */
 	public MyArrayList(int size) {
+		if (size < 0) {
+			throw new RuntimeException("size: " + size + " is illegal");
+		}
 		this.elementData = new Object[size];
 	}
 	

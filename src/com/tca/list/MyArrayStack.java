@@ -26,6 +26,9 @@ public class MyArrayStack<T> {
 	 * @param size
 	 */
 	public MyArrayStack(int size) {
+		if (size < 0) {
+			throw new RuntimeException("size: " + size + " is illegal");
+		}
 		elementData = new Object[size];
 	}
 	
@@ -35,6 +38,14 @@ public class MyArrayStack<T> {
 	 */
 	public boolean isEmpty() {
 		return size == 0;
+	}
+	
+	/**
+	 * 栈的实际使用大小
+	 * @return
+	 */
+	public int size() {
+		return size;
 	}
 	
 	/**
@@ -99,16 +110,19 @@ public class MyArrayStack<T> {
 		return value;
 	}
 	
+	/**
+	 * 第一个位置为栈底
+	 */
 	@Override
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
 		sb.append("[");
 		if (size > 0) {
-			for (int i = 0; i < size - 1; i++) {
+			for (int i = size - 1; i > 0; i--) {
 				sb.append(elementData[i].toString());
 				sb.append(", ");
 			}
-			sb.append(elementData[size - 1]);
+			sb.append(elementData[0]);
 		}
 		sb.append("]");
 		return sb.toString();

@@ -2,6 +2,12 @@ package com.tca.list;
 
 import java.util.Iterator;
 
+/**
+ *  数组表
+ * @author zhoua
+ *
+ * @param <T>
+ */
 public class MyArrayList<T>{
 	
 	private transient Object[] elementData;// 用于存放实际数据

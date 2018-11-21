@@ -1,7 +1,7 @@
 package com.tca.list;
 
 /**
- * 数组栈 无限栈
+ * 数组栈 -- 无限栈
  * @author zhoua
  *
  * @param <T>

@@ -2,6 +2,12 @@ package com.tca.list;
 
 import java.util.Iterator;
 
+/**
+ *  双向链表
+ * @author zhoua
+ *
+ * @param <T>
+ */
 public class MyLinkedList<T> {
 	
 	// 存储头节点

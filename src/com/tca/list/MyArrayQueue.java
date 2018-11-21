@@ -26,6 +26,9 @@ public class MyArrayQueue<T> {
 	 * @param size
 	 */
 	public MyArrayQueue(int size) {
+		if (size < 0) {
+			throw new RuntimeException("size: " + size + " is illegal");
+		}
 		this.elementData = new Object[size + 1];// 空一格位置用来区分队列已满和队列为空的状态
 	}
 	

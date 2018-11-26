@@ -105,8 +105,8 @@ public class MyArrayStack<T> {
 			throw new RuntimeException("stack is empty");
 		}
 		T value = top;
-		this.elementData[size--] = null;
-		top = size < 0? null: (T) this.elementData[size];
+		this.elementData[--size] = null;
+		top = size == 0? null: (T) this.elementData[size - 1];
 		return value;
 	}
 	

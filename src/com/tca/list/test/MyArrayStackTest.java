@@ -26,4 +26,14 @@ public class MyArrayStackTest {
 		System.out.println(stack.pop());
 		System.out.println(stack);
 	}
+	
+	@Test
+	public void test02() {
+		MyArrayStack<String> stack = new MyArrayStack<>();
+		stack.push("A");
+		stack.push("B");
+		while (!stack.isEmpty()) {
+			System.out.println(stack.pop());
+		}
+	}
 }

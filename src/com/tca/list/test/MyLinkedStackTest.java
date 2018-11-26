@@ -2,6 +2,7 @@ package com.tca.list.test;
 
 import org.junit.Test;
 
+import com.tca.list.MyArrayStack;
 import com.tca.list.MyLinkedStack;
 
 public class MyLinkedStackTest {
@@ -27,5 +28,15 @@ public class MyLinkedStackTest {
 		// pop
 		System.out.println(stack.pop());
 		System.out.println(stack);
+	}
+	
+	@Test
+	public void test02() {
+		MyLinkedStack<String> stack = new MyLinkedStack<>();
+		stack.push("A");
+		stack.push("B");
+		while (!stack.isEmpty()) {
+			System.out.println(stack.pop());
+		}
 	}
 }

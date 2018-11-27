@@ -1,5 +1,8 @@
 package com.tca.tree;
 
+import com.tca.list.MyArrayStack;
+import com.tca.list.MyLinkedQueue;
+
 public class AVLTree<T extends Comparable<T>> {
 	
 	private Node<T> root; // 根节点
@@ -101,7 +104,7 @@ public class AVLTree<T extends Comparable<T>> {
 		rootNode.left = newRoot.right; // 发现者的左子树变为新的根节点的右子树
 		newRoot.right = rootNode; // 新的根节点的右子树变为发现者
 		
-		// 重新计算发现者和新的根节点的高度
+		// 重新计算发现者和新的根节点的高度 -- 子树改变时需要重新计算高度
 		rootNode.height = height(rootNode);
 		newRoot.height = height(newRoot);
 		return newRoot;
@@ -121,7 +124,7 @@ public class AVLTree<T extends Comparable<T>> {
 		rootNode.right = newRoot.left; // 发现者的右子树变为新的根节点的左子树
 		newRoot.left = rootNode; // 新的根节点的左子树变为发现者
 		
-		// 重新计算发现者和新的根节点的高度
+		// 重新计算发现者和新的根节点的高度 -- 子树改变时需要重新计算高度
 		rootNode.height = height(rootNode);
 		newRoot.height = height(newRoot);
 		return newRoot;
@@ -178,14 +181,14 @@ public class AVLTree<T extends Comparable<T>> {
 	 */
 	private Node<T> insert(Node<T> rootNode, T value) {
 		// 如果树为空, 则直接新建根节点, 并返回
-		if (isEmpty()) {
+		if (rootNode == null) {
 			return new Node(value);
 		}
 		
 		// 如果树不为空
 		int result = rootNode.value.compareTo(value);
 		
-		if (result > 0) {// 插入右子树
+		if (result < 0) {// 插入右子树
 			rootNode.right = insert(rootNode.right, value);
 			// 插入后,判断是否需要旋转
 			if (getBalanceFactor(rootNode) == -2) {// 需要旋转
@@ -195,12 +198,12 @@ public class AVLTree<T extends Comparable<T>> {
 					rootNode = rightLeftRotation(rootNode);
 				}
 			}
-		} else if (result < 0) {// 插入左子树
+		} else if (result > 0) {// 插入左子树
 			rootNode.left = insert(rootNode.left, value);
 			if (getBalanceFactor(rootNode) == 2) {
-				if (value.compareTo(rootNode.right.value) > 0) { // 插在左子树的右子树上 -- LR旋转
+				if (value.compareTo(rootNode.left.value) > 0) { // 插在左子树的右子树上 -- LR旋转
 					rootNode = leftRightRotation(rootNode);
-				} else if (value.compareTo(rootNode.right.value) < 0) { // 插在左子树的左子树上 -- LL旋转
+				} else if (value.compareTo(rootNode.left.value) < 0) { // 插在左子树的左子树上 -- LL旋转
 					rootNode = leftLeftRotation(rootNode);
 				}
 			}
@@ -212,4 +215,204 @@ public class AVLTree<T extends Comparable<T>> {
 		return rootNode;
 	}
 	
+	
+
+	/**
+	 * 查找值为value的节点Node
+	 * @param value
+	 * @return
+	 */
+	public Node<T> get(T value) {
+		Node<T> node = new Node(value);
+		if (root == null) {
+			return null;
+		}
+		return get(root, node);
+	}
+	
+	/**
+	 * 查找
+	 * @param rootNode
+	 * @param node
+	 * @return
+	 */
+	private Node<T> get(Node<T> rootNode, Node<T> node) {
+		T rootValue = rootNode.value;
+		T value = node.value;
+		
+		int result = value.compareTo(rootValue);
+		if (result == 0) {
+			return rootNode;
+		}
+		
+		if (result > 0) {
+			return get(rootNode.right, node);
+		} 
+		
+		if (result < 0) {
+			return get(rootNode.left, node);
+		}
+		return null;
+	}
+	
+	/**
+	 * 获取最大值
+	 * @return
+	 */
+	public T getMax() {
+		return getMax(root);
+	}
+	
+	/**
+	 * 获取最大值
+	 * @param rootNode
+	 */
+	private T getMax(Node<T> rootNode) {
+		if (rootNode == null) {
+			throw new RuntimeException("root is null");
+		}
+		if (rootNode.right == null) {
+			return rootNode.value;
+		}
+		return getMax(rootNode.right);
+	}
+	
+	/**
+	 * 获取最小值
+	 * @return
+	 */
+	public T getMin() {
+		return getMin(root);
+	}
+	
+	/**
+	 * 获取最小值
+	 * @param rootNode
+	 * @return
+	 */
+	private T getMin(Node<T> rootNode) {
+		if (rootNode == null) {
+			throw new RuntimeException("root is null");
+		}
+		if (rootNode.left == null) {
+			return rootNode.value;
+		}
+		return getMin(rootNode.left);
+	}
+	
+	/**
+	 * 采用递归先序遍历
+	 * 	1.先打印当前节点
+	 * 	2.再访问左子树
+	 * 	3.再访问右子树
+	 */
+	public void preOrder() {
+		preOrder(root);
+	}
+	
+	/**
+	 * 采用递归方式先序遍历
+	 *  1.先打印当前节点
+	 *  2.再访问左子树
+	 *  3.再访问右子树
+	 * @param rootNode
+	 */
+	private void preOrder(Node<T> rootNode) {
+		if (rootNode == null) {
+			return;
+		}
+		// 输出当前节点
+		System.out.println(rootNode.value);
+		// 遍历左子树
+		if (rootNode.left != null) {
+			preOrder(rootNode.left);
+		}
+		// 遍历右子树
+		if (rootNode.right != null) {
+			preOrder(rootNode.right);
+		}
+	}
+	
+	/**
+	 * 采用递归方式中序遍历
+	 *  1.先访问左子树
+	 * 	2.打印当前节点
+	 * 	3.访问右子树
+	 */
+	public void inOrder() {
+		inOrder(root);
+	}
+	
+	/**
+	 * 采用递归方式中序遍历
+	 * @param rootNode
+	 */
+	private void inOrder(Node<T> rootNode) {
+		if (rootNode == null) {
+			return;
+		}
+		// 遍历左子树
+		if (rootNode.left != null) {
+			inOrder(rootNode.left);
+		}
+		// 输出当前节点
+		System.out.println(rootNode.value);
+		// 遍历右子树
+		if (rootNode.right != null) {
+			inOrder(rootNode.right);
+		}
+	}
+	
+	/**
+	 * 后序遍历 -- 采用栈结构
+	 */
+	public void postOrder() {
+		MyArrayStack<T> stack = new MyArrayStack<T>();
+		postOrder(root, stack);
+	}
+	
+	/**
+	 * 后序遍历
+	 * @param rootNode
+	 */
+	private void postOrder(Node<T> rootNode, MyArrayStack<T> stack) {
+		if (rootNode == null) {
+			return;
+		}
+		stack.push(rootNode.value);
+		if (rootNode.left != null) {
+			postOrder(rootNode.left, stack);
+		}
+		if (rootNode.right != null) {
+			postOrder(rootNode.right, stack);
+		}
+		System.out.println(stack.pop());
+	}
+	
+	/**
+	 * 层序遍历 -- 采用队列的方式
+	 */
+	public void levelOrder() {
+		MyLinkedQueue<Node<T>> queue = new MyLinkedQueue<>();
+		levelOrder(root, queue);
+	}
+	/**
+	 * 层序遍历
+	 * @param rootNode
+	 * @param myLinkedQueue
+	 */
+	private void levelOrder(Node<T> rootNode, MyLinkedQueue<Node<T>> queue) {
+		queue.enqueue(rootNode);
+		while (!queue.isEmpty()) {
+			Node<T> node = queue.dequeue();
+			System.out.println(node.value);// 输出队头节点
+			// 将左儿子和右儿子加入队列
+			if (node.left != null) {
+				queue.enqueue(node.left);
+			}
+			if (node.right != null) {
+				queue.enqueue(node.right);
+			}
+		}
+	}
 }

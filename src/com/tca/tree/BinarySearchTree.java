@@ -123,6 +123,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 		return true;
 	}
 	
+
 	/**
 	 * 查找值为value的节点Node
 	 * @param value
@@ -150,7 +151,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 		if (result == 0) {
 			return rootNode;
 		}
-
+		
 		if (result > 0) {
 			return get(rootNode.right, node);
 		} 
@@ -302,7 +303,6 @@ public class BinarySearchTree<T extends Comparable<T>> {
 		MyLinkedQueue<Node<T>> queue = new MyLinkedQueue<>();
 		levelOrder(root, queue);
 	}
-
 	/**
 	 * 层序遍历
 	 * @param rootNode

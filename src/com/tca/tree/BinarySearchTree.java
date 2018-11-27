@@ -95,12 +95,13 @@ public class BinarySearchTree<T extends Comparable<T>> {
 		T rootValue = rootNode.value;
 		T newValue = newNode.value;
 		// 如果新节点的值等于根节点
-		if (newValue.compareTo(rootValue) == 0) {
+		int result = newValue.compareTo(rootValue);
+		if (result == 0) {
 			return false;
 		}
 		
 		// 如果新节点的值大于根节点
-		if (newValue.compareTo(rootValue) > 0) {
+		if (result > 0) {
 			if (rootNode.right == null) { //根节点没有右儿子
 				rootNode.right = newNode;
 				newNode.father = rootNode;
@@ -110,7 +111,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 			}
 		}
 		// 如果新节点的值小于根节点
-		if (newValue.compareTo(rootValue) < 0) { 
+		if (result < 0) { 
 			if (rootNode.left == null) { // 根节点没有左儿子
 				rootNode.left = newNode;
 				newNode.father = rootNode;
@@ -129,6 +130,9 @@ public class BinarySearchTree<T extends Comparable<T>> {
 	 */
 	public Node<T> get(T value) {
 		Node<T> node = new Node(value);
+		if (root == null) {
+			return null;
+		}
 		return get(root, node);
 	}
 	
@@ -141,15 +145,17 @@ public class BinarySearchTree<T extends Comparable<T>> {
 	private Node<T> get(Node<T> rootNode, Node<T> node) {
 		T rootValue = rootNode.value;
 		T value = node.value;
-		if (value.compareTo(rootValue) == 0) {
+		
+		int result = value.compareTo(rootValue);
+		if (result == 0) {
 			return rootNode;
 		}
-		
-		if (value.compareTo(rootValue) > 0) {
+
+		if (result > 0) {
 			return get(rootNode.right, node);
 		} 
 		
-		if (value.compareTo(rootValue) < 0) {
+		if (result < 0) {
 			return get(rootNode.left, node);
 		}
 		return null;

@@ -166,8 +166,8 @@ public class AVLTree<T extends Comparable<T>> {
 	 * 插入节点
 	 * @param value
 	 */
-	public void insert(T value) {
-		root = insert(root, value);
+	public void add(T value) {
+		root = add(root, value);
 	}
 	
 	/**
@@ -179,7 +179,7 @@ public class AVLTree<T extends Comparable<T>> {
 	 * @param value
 	 * @return
 	 */
-	private Node<T> insert(Node<T> rootNode, T value) {
+	private Node<T> add(Node<T> rootNode, T value) {
 		// 如果树为空, 则直接新建根节点, 并返回
 		if (rootNode == null) {
 			return new Node(value);
@@ -189,7 +189,7 @@ public class AVLTree<T extends Comparable<T>> {
 		int result = rootNode.value.compareTo(value);
 		
 		if (result < 0) {// 插入右子树
-			rootNode.right = insert(rootNode.right, value);
+			rootNode.right = add(rootNode.right, value);
 			// 插入后,判断是否需要旋转
 			if (getBalanceFactor(rootNode) == -2) {// 需要旋转
 				if (value.compareTo(rootNode.right.value) > 0) { // 插在右子树的右子树上 -- RR旋转
@@ -199,7 +199,7 @@ public class AVLTree<T extends Comparable<T>> {
 				}
 			}
 		} else if (result > 0) {// 插入左子树
-			rootNode.left = insert(rootNode.left, value);
+			rootNode.left = add(rootNode.left, value);
 			if (getBalanceFactor(rootNode) == 2) {
 				if (value.compareTo(rootNode.left.value) > 0) { // 插在左子树的右子树上 -- LR旋转
 					rootNode = leftRightRotation(rootNode);
@@ -215,7 +215,26 @@ public class AVLTree<T extends Comparable<T>> {
 		return rootNode;
 	}
 	
+	/**
+	 * 删除
+	 * @param data
+	 */
+	public void remove(T data) {
+		this.root = remove(root, data);
+	}
 	
+	/**
+	 *  删除操作:
+	 *  rootNode : 删除的树的根节点
+	 *  value : 删除的值
+	 *  return : 返回删除节点后的树的根节点
+	 * @param rootNode
+	 * @param data
+	 * @return
+	 */
+	private Node<T> remove(Node<T> rootNode, T data) {
+		return null;
+	}
 
 	/**
 	 * 查找值为value的节点Node
@@ -415,4 +434,5 @@ public class AVLTree<T extends Comparable<T>> {
 			}
 		}
 	}
+	
 }

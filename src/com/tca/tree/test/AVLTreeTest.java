@@ -12,7 +12,7 @@ public class AVLTreeTest {
 		AVLTree<Integer> tree = new AVLTree<>();
 		
 		for (int i : arr) {
-			tree.insert(i);
+			tree.add(i);
 			System.out.println("height = " + tree.height());
 			tree.levelOrder();
 			System.out.println("================");
@@ -22,7 +22,7 @@ public class AVLTreeTest {
 	@Test
 	public void test02() {
 		AVLTree<Integer> tree = new AVLTree<>();
-		tree.insert(3);
-		tree.insert(2);
+		tree.add(3);
+		tree.add(2);
 	}
 }

@@ -233,7 +233,56 @@ public class AVLTree<T extends Comparable<T>> {
 	 * @return
 	 */
 	private Node<T> remove(Node<T> rootNode, T data) {
-		return null;
+		if (rootNode == null) {
+			throw new RuntimeException("rootNode is null");
+		}
+		if (data == null) {
+			throw new RuntimeException("data is null");
+		}
+		
+		T value = rootNode.value;
+		int result = data.compareTo(value);
+		
+		if (result > 0) {// 如果删除的节点在根节点右边
+			rootNode.right = remove(rootNode.right, data);
+			// 子节点有变化, 要判断当前树是否需要旋转
+			if (getBalanceFactor(rootNode) == 2) {
+				if(height(rootNode.left.left) > height(rootNode.left.right)) {
+					// LL旋转
+					rootNode = leftLeftRotation(rootNode);
+				} else {
+					// LR旋转
+					rootNode = leftRightRotation(rootNode); 
+				}
+			}
+		} else if (result < 0) {// 如果删除节点在根节点的左边
+			rootNode.left = remove(rootNode.left, data);
+			// 子节点有变化，要判断当前树是否需要旋转
+			if (getBalanceFactor(rootNode) == -2) {
+				if (height(rootNode.right.left) > height(rootNode.right.right)) {
+					//RL旋转
+					rootNode = rightLeftRotation(rootNode);
+				} else {
+					//RR旋转
+					rootNode = rightRightRotation(rootNode);
+				}
+			}
+		} else {// 删除的节点为当前节点
+			if (rootNode.right != null && rootNode.left != null) {
+				rootNode.value = getMin(rootNode.right);// 用右子树最小值代替当前节点
+				rootNode.right = remove(rootNode.right, rootNode.value);
+			} else {
+				rootNode = rootNode.left == null? rootNode.right: rootNode.left;
+			}
+			
+		}
+		
+		// 更新树的高度
+		if (rootNode != null) {
+			rootNode.height = height(rootNode);
+		}
+		
+		return rootNode;
 	}
 
 	/**
@@ -421,7 +470,9 @@ public class AVLTree<T extends Comparable<T>> {
 	 * @param myLinkedQueue
 	 */
 	private void levelOrder(Node<T> rootNode, MyLinkedQueue<Node<T>> queue) {
-		queue.enqueue(rootNode);
+		if (rootNode != null) {
+			queue.enqueue(rootNode);
+		}
 		while (!queue.isEmpty()) {
 			Node<T> node = queue.dequeue();
 			System.out.println(node.value);// 输出队头节点

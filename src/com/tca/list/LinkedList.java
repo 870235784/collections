@@ -8,7 +8,7 @@ import java.util.Iterator;
  *
  * @param <T>
  */
-public class MyLinkedList<T> {
+public class LinkedList<T> {
 	
 	// 存储头节点
 	private Node<T> first;
@@ -20,7 +20,7 @@ public class MyLinkedList<T> {
 	private int size;
 	
 	// 构造器
-	public MyLinkedList () {
+	public LinkedList () {
 		first = last = null;
 	}
 	

@@ -6,7 +6,7 @@ package com.tca.list;
  *
  * @param <T>
  */
-public class MyArrayQueue<T> {
+public class ArrayQueue<T> {
 	
 	private int front; // 队列头位置(出队列)
 	
@@ -17,7 +17,7 @@ public class MyArrayQueue<T> {
 	/**
 	 * 无参构造器
 	 */
-	public MyArrayQueue() {
+	public ArrayQueue() {
 		this(10);
 	}
 	
@@ -25,7 +25,7 @@ public class MyArrayQueue<T> {
 	 * 用于表示队列的实际大小
 	 * @param size
 	 */
-	public MyArrayQueue(int size) {
+	public ArrayQueue(int size) {
 		if (size < 0) {
 			throw new RuntimeException("size: " + size + " is illegal");
 		}

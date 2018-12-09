@@ -6,7 +6,7 @@ package com.tca.list;
  *
  * @param <T>
  */
-public class MyLinkedStack<T> {
+public class LinkedStack<T> {
 	
 	private Node<T> top; // 栈顶元素
 	
@@ -37,7 +37,7 @@ public class MyLinkedStack<T> {
 	 * 构造器, 传入的参数为栈的最大容量
 	 * @param size
 	 */
-	public MyLinkedStack(int size) {
+	public LinkedStack(int size) {
 		if (size < 0) {
 			throw new RuntimeException("size: " + size + " is illegal");
 		}
@@ -47,7 +47,7 @@ public class MyLinkedStack<T> {
 	/**
 	 * 默认容量为32
 	 */
-	public MyLinkedStack() {
+	public LinkedStack() {
 		this(32);
 	}
 	

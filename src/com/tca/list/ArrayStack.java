@@ -6,7 +6,7 @@ package com.tca.list;
  *
  * @param <T>
  */
-public class MyArrayStack<T> {
+public class ArrayStack<T> {
 	
 	private transient Object[] elementData; // 实际存储元素的数组(可扩容)
 	
@@ -17,7 +17,7 @@ public class MyArrayStack<T> {
 	/**
 	 * 默认无参构造器
 	 */
-	public MyArrayStack() {
+	public ArrayStack() {
 		this(10);
 	}
 	
@@ -25,7 +25,7 @@ public class MyArrayStack<T> {
 	 * 含参构造器
 	 * @param size
 	 */
-	public MyArrayStack(int size) {
+	public ArrayStack(int size) {
 		if (size < 0) {
 			throw new RuntimeException("size: " + size + " is illegal");
 		}

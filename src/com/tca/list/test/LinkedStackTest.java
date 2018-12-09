@@ -2,16 +2,19 @@ package com.tca.list.test;
 
 import org.junit.Test;
 
-import com.tca.list.MyArrayStack;
+import com.tca.list.ArrayStack;
+import com.tca.list.LinkedStack;
 
-public class MyArrayStackTest {
+public class LinkedStackTest {
 	@Test
 	public void test01() {
-		MyArrayStack<String> stack = new MyArrayStack<>();
+		LinkedStack<String> stack = new LinkedStack<>();
 		
 		// push
 		stack.push("A");
+		System.out.println(stack);
 		stack.push("B");
+		System.out.println(stack);
 		stack.push("C");
 		System.out.println(stack);
 		
@@ -29,7 +32,7 @@ public class MyArrayStackTest {
 	
 	@Test
 	public void test02() {
-		MyArrayStack<String> stack = new MyArrayStack<>();
+		LinkedStack<String> stack = new LinkedStack<>();
 		stack.push("A");
 		stack.push("B");
 		while (!stack.isEmpty()) {

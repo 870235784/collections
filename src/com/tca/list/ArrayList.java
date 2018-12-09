@@ -8,7 +8,7 @@ import java.util.Iterator;
  *
  * @param <T>
  */
-public class MyArrayList<T>{
+public class ArrayList<T>{
 	
 	private transient Object[] elementData;// 用于存放实际数据
 	
@@ -17,7 +17,7 @@ public class MyArrayList<T>{
 	/**
 	 * 无参构造器
 	 */
-	public MyArrayList() {
+	public ArrayList() {
 		this(10); // 默认容量为10
 	}
 	
@@ -25,7 +25,7 @@ public class MyArrayList<T>{
 	 * 含参构造器
 	 * @param size
 	 */
-	public MyArrayList(int size) {
+	public ArrayList(int size) {
 		if (size < 0) {
 			throw new RuntimeException("size: " + size + " is illegal");
 		}

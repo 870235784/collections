@@ -6,7 +6,7 @@ package com.tca.list;
  *
  * @param <T>
  */
-public class MyLinkedQueue<T> {
+public class LinkedQueue<T> {
 	
 	private Node<T> front; // 队头
 	
@@ -36,7 +36,7 @@ public class MyLinkedQueue<T> {
 	/**
 	 * 构造器
 	 */
-	public MyLinkedQueue() {}
+	public LinkedQueue() {}
 	
 	/**
 	 * 队列中元素个数

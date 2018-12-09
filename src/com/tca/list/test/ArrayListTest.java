@@ -4,12 +4,12 @@ import java.util.Iterator;
 
 import org.junit.Test;
 
-import com.tca.list.MyLinkedList;
+import com.tca.list.ArrayList;
 
-public class MyLinkedListTest {
+public class ArrayListTest {
 	@Test
 	public void test01() {
-		MyLinkedList<String> list = new MyLinkedList<>();
+		ArrayList<String> list = new ArrayList<>();
 		//add
 		list.add("A");
 		list.add("B");
@@ -60,7 +60,7 @@ public class MyLinkedListTest {
 	
 	@Test
 	public void test02() {
-		MyLinkedList<String> list = new MyLinkedList<>();
+		ArrayList<String> list = new ArrayList<>();
 		//add
 		list.add("A");
 		list.add("B");
@@ -73,6 +73,5 @@ public class MyLinkedListTest {
 		String ele = list.set(2, "b");
 		System.out.println(ele);
 		System.out.println(list);
-		
 	}
 }

@@ -1,7 +1,7 @@
 package com.tca.tree;
 
-import com.tca.list.MyArrayStack;
-import com.tca.list.MyLinkedQueue;
+import com.tca.list.ArrayStack;
+import com.tca.list.LinkedQueue;
 
 public class AVLTree<T extends Comparable<T>> {
 	
@@ -435,7 +435,7 @@ public class AVLTree<T extends Comparable<T>> {
 	 * 后序遍历 -- 采用栈结构
 	 */
 	public void postOrder() {
-		MyArrayStack<T> stack = new MyArrayStack<T>();
+		ArrayStack<T> stack = new ArrayStack<T>();
 		postOrder(root, stack);
 	}
 	
@@ -443,7 +443,7 @@ public class AVLTree<T extends Comparable<T>> {
 	 * 后序遍历
 	 * @param rootNode
 	 */
-	private void postOrder(Node<T> rootNode, MyArrayStack<T> stack) {
+	private void postOrder(Node<T> rootNode, ArrayStack<T> stack) {
 		if (rootNode == null) {
 			return;
 		}
@@ -461,7 +461,7 @@ public class AVLTree<T extends Comparable<T>> {
 	 * 层序遍历 -- 采用队列的方式
 	 */
 	public void levelOrder() {
-		MyLinkedQueue<Node<T>> queue = new MyLinkedQueue<>();
+		LinkedQueue<Node<T>> queue = new LinkedQueue<>();
 		levelOrder(root, queue);
 	}
 	/**
@@ -469,7 +469,7 @@ public class AVLTree<T extends Comparable<T>> {
 	 * @param rootNode
 	 * @param myLinkedQueue
 	 */
-	private void levelOrder(Node<T> rootNode, MyLinkedQueue<Node<T>> queue) {
+	private void levelOrder(Node<T> rootNode, LinkedQueue<Node<T>> queue) {
 		if (rootNode != null) {
 			queue.enqueue(rootNode);
 		}

@@ -2,13 +2,14 @@ package com.tca.list.test;
 
 import org.junit.Test;
 
-import com.tca.list.MyLinkedQueue;
+import com.tca.list.ArrayQueue;
 
-public class MyLinkedQueueTest {
+public class ArrayQueueTest {
 	@Test
 	public void test01() {
-		MyLinkedQueue<String> queue = new MyLinkedQueue<>();
+		ArrayQueue<String> queue = new ArrayQueue<>();
 		
+		System.out.println(queue.capacity());
 		System.out.println(queue.size());
 		System.out.println(queue.isEmpty());
 		System.out.println(queue.isFull());
@@ -19,6 +20,7 @@ public class MyLinkedQueueTest {
 		for (int i = 0; i < 10; i++) {
 			queue.enqueue(i + "");
 		}
+		System.out.println(queue.capacity());
 		System.out.println(queue.size());
 		System.out.println(queue.isEmpty());
 		System.out.println(queue.isFull());
@@ -34,6 +36,7 @@ public class MyLinkedQueueTest {
 			System.out.println(queue.dequeue());
 		}
 		System.out.println(queue);
+		System.out.println(queue.capacity());
 		System.out.println(queue.size());
 		System.out.println(queue.isEmpty());
 		System.out.println(queue.isFull());

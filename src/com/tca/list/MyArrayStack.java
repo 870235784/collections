@@ -105,7 +105,7 @@ public class MyArrayStack<T> {
 			throw new RuntimeException("stack is empty");
 		}
 		T value = top;
-		this.elementData[--size] = null;
+		this.elementData[--size] = null; // 消除过期的对象，便于垃圾回收
 		top = size == 0? null: (T) this.elementData[size - 1];
 		return value;
 	}

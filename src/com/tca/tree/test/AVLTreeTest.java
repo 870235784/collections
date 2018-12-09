@@ -13,6 +13,13 @@ public class AVLTreeTest {
 		
 		for (int i : arr) {
 			tree.add(i);
+			/*System.out.println("height = " + tree.height());
+			tree.levelOrder();
+			System.out.println("================");*/
+		}
+		
+		for (int i : arr) {
+			tree.remove(i);
 			System.out.println("height = " + tree.height());
 			tree.levelOrder();
 			System.out.println("================");

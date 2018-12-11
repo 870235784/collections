@@ -64,7 +64,7 @@ public class MaxHeap<T extends Comparable<T>> {
 			// 将最后一个元素放到根位置，再做调整
 			this.elementData[0] = this.elementData[size - 1];
 			this.elementData[size - 1] = null;
-			
+			// 调整树结构
 			alterRoot(0);
 		}
 		

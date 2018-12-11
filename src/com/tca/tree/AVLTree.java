@@ -180,6 +180,10 @@ public class AVLTree<T extends Comparable<T>> {
 	 * @return
 	 */
 	private Node<T> add(Node<T> rootNode, T value) {
+		if (value == null) {
+			throw new RuntimeException("the element is null");
+		}
+		
 		// 如果树为空, 则直接新建根节点, 并返回
 		if (rootNode == null) {
 			return new Node(value);

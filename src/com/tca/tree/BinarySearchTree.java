@@ -75,6 +75,10 @@ public class BinarySearchTree<T extends Comparable<T>> {
 	 * @return
 	 */
 	public boolean add(T value) {
+		if (value == null) {
+			throw new RuntimeException("the element is null");
+		}
+		
 		Node<T> newNode = new Node(value);
 		
 		// 如果树为空, 则新增节点为根节点

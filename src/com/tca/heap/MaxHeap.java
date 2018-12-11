@@ -10,7 +10,7 @@ package com.tca.heap;
  */
 public class MaxHeap<T extends Comparable<T>> {
 	
-	private transient T[] elementData; // 用于存放实际存储的数据
+	private transient Object[] elementData; // 用于存放实际存储的数据
 	
 	private int size; // 堆中实际存储的数据量
 	
@@ -19,7 +19,7 @@ public class MaxHeap<T extends Comparable<T>> {
 		if (size < 0) {
 			throw new RuntimeException("size: " + size + " is illegal");
 		}
-		this.elementData = (T[]) new Object[size];
+		this.elementData = new Object[size];
 	}
 	
 	public MaxHeap() {
@@ -40,8 +40,8 @@ public class MaxHeap<T extends Comparable<T>> {
 
 		this.elementData[size++] = element;
 		
-		for (int i = size, j = (i - 1) / 2; this.elementData[j].compareTo(this.elementData[i]) < 0 && i > 0; i = j, j = (i - 1) / 2) {
-			T temp = this.elementData[i];
+		for (int i = size - 1, j = (i - 1) / 2; ((T)this.elementData[j]).compareTo((T) this.elementData[i]) < 0 && i > 0; i = j, j = (i - 1) / 2) {
+			T temp = (T) this.elementData[i];
 			this.elementData[i] = this.elementData[j]; 
 			this.elementData[j] = temp; 
 		}
@@ -57,7 +57,7 @@ public class MaxHeap<T extends Comparable<T>> {
 			throw new RuntimeException("the heap is empty");
 		}
 		
-		T max = this.elementData[0];
+		T max = (T) this.elementData[0];
 		
 		if (size > 1) {
 			// 将最后一个元素放到根位置，再做调整
@@ -67,6 +67,8 @@ public class MaxHeap<T extends Comparable<T>> {
 			int i = 0;
 			alterRoot(0);
 		}
+		
+		size--;
 		
 		return max;
 	}
@@ -80,9 +82,9 @@ public class MaxHeap<T extends Comparable<T>> {
 		int leftson = 2 * i + 1;
 		int rightson = 2 * i + 2;
 		
-		T root = this.elementData[i];
-		T leftsonEle =  this.elementData[leftson];
-		T rightsonEle = this.elementData[rightson];
+		T root = (T) this.elementData[i];
+		T leftsonEle =  (T) this.elementData[leftson];
+		T rightsonEle = (T) this.elementData[rightson];
 		if (leftsonEle == null) {
 			return i;
 		}
@@ -92,7 +94,7 @@ public class MaxHeap<T extends Comparable<T>> {
 			return max;
 		}
 		
-		if (this.elementData[max].compareTo(rightsonEle) < 0) {
+		if (((Comparable<T>) this.elementData[max]).compareTo(rightsonEle) < 0) {
 			max = rightson;
 		}
 		return max;
@@ -107,7 +109,7 @@ public class MaxHeap<T extends Comparable<T>> {
 		if (maxIndex == i) {
 			return;
 		}
-		T temp = this.elementData[i];
+		T temp = (T) this.elementData[i];
 		this.elementData[i] = this.elementData[maxIndex];
 		this.elementData[maxIndex] = temp;
 		

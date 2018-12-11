@@ -14,7 +14,6 @@ public class MaxHeap<T extends Comparable<T>> {
 	
 	private int size; // 堆中实际存储的数据量
 	
-	@SuppressWarnings("unchecked")
 	public MaxHeap(int size) {
 		if (size < 0) {
 			throw new RuntimeException("size: " + size + " is illegal");
@@ -30,6 +29,7 @@ public class MaxHeap<T extends Comparable<T>> {
 	 * 添加元素
 	 * @param element
 	 */
+	@SuppressWarnings("unchecked")
 	public void add(T element) {
 		if (element == null) {
 			throw new RuntimeException("the element is null");
@@ -52,6 +52,7 @@ public class MaxHeap<T extends Comparable<T>> {
 	 * 取出最大元素
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	public T remove() {
 		if (isEmpty()) {
 			throw new RuntimeException("the heap is empty");
@@ -64,7 +65,6 @@ public class MaxHeap<T extends Comparable<T>> {
 			this.elementData[0] = this.elementData[size - 1];
 			this.elementData[size - 1] = null;
 			
-			int i = 0;
 			alterRoot(0);
 		}
 		
@@ -78,6 +78,7 @@ public class MaxHeap<T extends Comparable<T>> {
 	 * @param i
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	private int max(int i) {
 		int leftson = 2 * i + 1;
 		int rightson = 2 * i + 2;
@@ -104,6 +105,7 @@ public class MaxHeap<T extends Comparable<T>> {
 	 * 调整根节点
 	 * @param i
 	 */
+	@SuppressWarnings("unchecked")
 	private void alterRoot(int i) {
 		int maxIndex = max(i);
 		if (maxIndex == i) {

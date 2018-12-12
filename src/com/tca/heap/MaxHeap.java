@@ -84,6 +84,10 @@ public class MaxHeap<T extends Comparable<T>> {
 		int rightson = 2 * i + 2;
 		
 		T root = (T) this.elementData[i];
+		if (root == null) {
+			throw new RuntimeException("the root element is null");
+		}
+		
 		T leftsonEle =  (T) this.elementData[leftson];
 		T rightsonEle = (T) this.elementData[rightson];
 		if (leftsonEle == null) {

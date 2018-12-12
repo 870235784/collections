@@ -1,27 +1,27 @@
 package com.tca.heap;
 
 /**
- * 最大堆 -- 用数组的方式实现
+ * 最小堆 -- 用数组的方式实现
  * 	1.添加元素
- * 	2.删除最大元素
- * 	3.将一个普通数组(元素可排序)转化为最大堆
+ * 	2.删除最小元素
+ * 	3.将一个普通数组(元素可排序)转化为最小堆
  * @author zhoua
  *
  */
-public class MaxHeap<T extends Comparable<T>> {
+public class MinHeap<T extends Comparable<T>> {
 	
 	private transient Object[] elementData; // 用于存放实际存储的数据
 	
 	private int size; // 堆中实际存储的数据量
 	
-	public MaxHeap(int size) {
+	public MinHeap(int size) {
 		if (size < 0) {
 			throw new RuntimeException("size: " + size + " is illegal");
 		}
 		this.elementData = new Object[size];
 	}
 	
-	public MaxHeap() {
+	public MinHeap() {
 		this(16);
 	}
 	
@@ -40,12 +40,11 @@ public class MaxHeap<T extends Comparable<T>> {
 
 		this.elementData[size++] = element;
 		
-		for (int i = size - 1, j = (i - 1) / 2; ((T)this.elementData[j]).compareTo((T) this.elementData[i]) < 0 && i > 0; i = j, j = (i - 1) / 2) {
+		for (int i = size - 1, j = (i - 1) / 2; ((T)this.elementData[j]).compareTo((T) this.elementData[i]) > 0 && i > 0; i = j, j = (i - 1) / 2) {
 			T temp = (T) this.elementData[i];
 			this.elementData[i] = this.elementData[j]; 
 			this.elementData[j] = temp; 
 		}
-		
 	}
 	
 	/**
@@ -58,7 +57,7 @@ public class MaxHeap<T extends Comparable<T>> {
 			throw new RuntimeException("the heap is empty");
 		}
 		
-		T max = (T) this.elementData[0];
+		T min = (T) this.elementData[0];
 		
 		if (size > 1) {
 			// 将最后一个元素放到根位置，再做调整
@@ -70,16 +69,16 @@ public class MaxHeap<T extends Comparable<T>> {
 		
 		size--;
 		
-		return max;
+		return min;
 	}
 	
 	/**
-	 * 根节点i中根节点，左儿子，右儿子中最大元素的索引
+	 * 根节点i中根节点，左儿子，右儿子中最小元素的索引
 	 * @param i
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	private int max(int i) {
+	private int min(int i) {
 		int leftson = 2 * i + 1;
 		int rightson = 2 * i + 2;
 		
@@ -94,36 +93,35 @@ public class MaxHeap<T extends Comparable<T>> {
 			return i;
 		}
 		
-		int max = root.compareTo(leftsonEle) < 0? leftson: i;
+		int min = root.compareTo(leftsonEle) > 0? leftson: i;
 		if (rightsonEle == null) {
-			return max;
+			return min;
 		}
 		
-		if (((Comparable<T>) this.elementData[max]).compareTo(rightsonEle) < 0) {
-			max = rightson;
+		if (((Comparable<T>) this.elementData[min]).compareTo(rightsonEle) > 0) {
+			min = rightson;
 		}
-		return max;
+		return min;
 	}
 	
 	/**
 	 * 调整根节点
-	 *   --采用递归的方式
 	 * @param i
 	 */
 	@SuppressWarnings("unchecked")
 	private void alterRoot(int i) {
-		int maxIndex = max(i);
-		if (maxIndex == i) {
-			return;
+		while (min(i) != i) {
+			int minIndex = min(i);
+			// 交换元素
+			T temp = (T) this.elementData[i];
+			this.elementData[i] = this.elementData[minIndex];
+			this.elementData[minIndex] = temp;
+			
+			i = minIndex;
 		}
-		T temp = (T) this.elementData[i];
-		this.elementData[i] = this.elementData[maxIndex];
-		this.elementData[maxIndex] = temp;
 		
-		alterRoot(maxIndex);
 	}
-
-
+	
 	/**
 	 * 检验当前数组是否已满，如果已满，则进行扩容，每次扩容为之前的1.5倍+1
 	 * 	+1 是为了避免原数组长度为0
@@ -168,5 +166,4 @@ public class MaxHeap<T extends Comparable<T>> {
 		sb.append("]");
 		return sb.toString();
 	}
-	
 }

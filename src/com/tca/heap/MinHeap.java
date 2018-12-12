@@ -26,6 +26,26 @@ public class MinHeap<T extends Comparable<T>> {
 	}
 	
 	/**
+	 * 将可排序数组转化为最小堆
+	 * @param elements
+	 */
+	public MinHeap(T[] elements) {
+		// 创建堆
+		this.elementData = new Object[elements.length * 2 + 2];
+		this.size = elements.length;
+		System.arraycopy(elements, 0, elementData, 0, elements.length);
+		
+		// 调整堆, 从最后一个有儿子节点的根节点开始调整
+		for (int i = (elements.length - 1) / 2; i >= 0; i--) {
+			int minIndex = min(i);
+			if (minIndex != i) {
+				alterRoot(i);
+			}
+		}
+	}
+	
+	
+	/**
 	 * 添加元素
 	 * @param element
 	 */

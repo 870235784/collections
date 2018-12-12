@@ -39,5 +39,12 @@ public class MaxHeapTest {
 		System.out.println("Hello");
 	}
 	
+	@Test
+	public void test03() {
+		Integer[] elements = new Integer[] {1, 2, 3, 4, 5, 6};
+		MaxHeap<Integer> maxHeap = new MaxHeap<>(elements); 
+		System.out.println(maxHeap);
+	}
+	
 	
 }

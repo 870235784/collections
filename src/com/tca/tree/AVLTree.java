@@ -3,6 +3,20 @@ package com.tca.tree;
 import com.tca.list.ArrayStack;
 import com.tca.list.LinkedQueue;
 
+/**
+ * AVL树:
+ * 	1.构造AVL树
+ * 	2.判断AVL树是否为空
+ * 	3.获取AVL树的高度
+ * 	4.添加元素
+ * 	5.删除元素
+ * 	6.获取最大元素
+ * 	7.获取最小元素
+ * 	8.遍历: 先序遍历, 中序遍历, 后序遍历, 层序遍历
+ * @author zhoua
+ *
+ * @param <T>
+ */
 public class AVLTree<T extends Comparable<T>> {
 	
 	private Node<T> root; // 根节点

@@ -146,7 +146,6 @@ public class MinHeap<T extends Comparable<T>> {
 	 * 检验当前数组是否已满，如果已满，则进行扩容，每次扩容为之前的1.5倍+1
 	 * 	+1 是为了避免原数组长度为0
 	 */
-	@SuppressWarnings("unchecked")
 	private void checkAndExpansion() {
 		int length = elementData.length; // 表示数组容量已满
 		if (length == size) {

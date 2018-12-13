@@ -5,6 +5,7 @@ import com.tca.heap.MinHeap;
 /**
  * 哈夫曼树(最优二叉树)
  * 	1.构造哈夫曼树(所有的原始节点都在叶子节点上)
+ * 	2.计算树的WPL(带权路径长度)
  * @author zhoua
  *
  */

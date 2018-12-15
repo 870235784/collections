@@ -150,14 +150,14 @@ public class AVLTree<T extends Comparable<T>> {
 	 * 	rootNode: 发现者节点
 	 *  return: 旋转后的树的根节点 
 	 *  step:
-	 *  	1.以破坏者左子树的根节点为破坏者作RR单旋转
-	 *  	2.以破坏者作LL单旋转
+	 *  	1.以发现者左子树的根节点为破坏者作RR单旋转
+	 *  	2.以发现者作LL单旋转
 	 * @param rootNode
 	 * @return
 	 */
 	private Node<T> leftRightRotation(Node<T> rootNode) {
-		rootNode.left = rightRightRotation(rootNode.left); // 以破坏者左子树的根节点为破坏者作RR单旋转
-		return leftLeftRotation(rootNode); // 以破坏者作LL单旋转
+		rootNode.left = rightRightRotation(rootNode.left); // 以发现者左子树的根节点为破坏者作RR单旋转
+		return leftLeftRotation(rootNode); // 以发现者作LL单旋转
 	}
 	
 	/**
@@ -166,14 +166,14 @@ public class AVLTree<T extends Comparable<T>> {
 	 * 	rootNode: 发现者节点
 	 *  return: 旋转后的树的根节点 
 	 *  step:
-	 *  	1.以破坏者左右子树的根节点为破坏者作LL单旋转
-	 *  	2.以破坏者作RR单旋转
+	 *  	1.以发现者左右子树的根节点为破坏者作LL单旋转
+	 *  	2.以发现者作RR单旋转
 	 * @param rootNode
 	 * @return
 	 */
 	private Node<T> rightLeftRotation(Node<T> rootNode) {
-		rootNode.right = leftLeftRotation(rootNode.right); // 以破坏者右子树的根节点为破坏者作LL单旋转
-		return rightRightRotation(rootNode); // 以破坏者作RR单旋转
+		rootNode.right = leftLeftRotation(rootNode.right); // 以发现者右子树的根节点为破坏者作LL单旋转
+		return rightRightRotation(rootNode); // 以发现者作RR单旋转
 	}
 	
 	/**

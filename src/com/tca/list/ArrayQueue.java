@@ -77,6 +77,7 @@ public class ArrayQueue<T> {
 	/**
 	 * 出队
 	 */
+	@SuppressWarnings("unchecked")
 	public T dequeue() {
 		if (isEmpty()) {
 			throw new RuntimeException("queue is empty");

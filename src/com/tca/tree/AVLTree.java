@@ -200,7 +200,7 @@ public class AVLTree<T extends Comparable<T>> {
 		
 		// 如果树为空, 则直接新建根节点, 并返回
 		if (rootNode == null) {
-			return new Node(value);
+			return new Node<>(value);
 		}
 		
 		// 如果树不为空
@@ -309,7 +309,7 @@ public class AVLTree<T extends Comparable<T>> {
 	 * @return
 	 */
 	public Node<T> get(T value) {
-		Node<T> node = new Node(value);
+		Node<T> node = new Node<>(value);
 		if (root == null) {
 			return null;
 		}

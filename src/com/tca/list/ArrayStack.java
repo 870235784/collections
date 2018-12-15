@@ -104,6 +104,7 @@ public class ArrayStack<T> {
 	 * 弹出栈顶元素
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	public T pop() {
 		// 如果栈为空, 则抛出异常
 		if (isEmpty()) {

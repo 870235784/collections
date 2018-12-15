@@ -86,7 +86,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 			throw new RuntimeException("the element is null");
 		}
 		
-		Node<T> newNode = new Node(value);
+		Node<T> newNode = new Node<>(value);
 		
 		// 如果树为空, 则新增节点为根节点
 		if (isEmpty()) {
@@ -141,7 +141,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 	 * @return
 	 */
 	public Node<T> get(T value) {
-		Node<T> node = new Node(value);
+		Node<T> node = new Node<>(value);
 		if (root == null) {
 			return null;
 		}

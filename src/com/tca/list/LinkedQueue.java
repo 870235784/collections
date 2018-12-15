@@ -27,6 +27,7 @@ public class LinkedQueue<T> {
 			this.value = value;
 		}
 		
+		@SuppressWarnings("unused")
 		public Node(T value, Node<T> node) {
 			this.value = value;
 			this.next = node;
@@ -72,7 +73,7 @@ public class LinkedQueue<T> {
 	 * @param e
 	 */
 	public void enqueue(T e) {
-		Node<T> node = new Node(e);
+		Node<T> node = new Node<>(e);
 		if (isEmpty()) {// 如果队列为空
 			front = rear = node;
 			size++;

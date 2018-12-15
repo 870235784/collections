@@ -2,7 +2,6 @@ package com.tca.list.test;
 
 import org.junit.Test;
 
-import com.tca.list.ArrayStack;
 import com.tca.list.LinkedStack;
 
 public class LinkedStackTest {

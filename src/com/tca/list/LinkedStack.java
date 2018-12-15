@@ -93,7 +93,7 @@ public class LinkedStack<T> {
 		}
 		
 		// 将元素添加到栈顶
-		Node<T> newNode = top == null? new Node(e): new Node(e, top);
+		Node<T> newNode = top == null? new Node<>(e): new Node<>(e, top);
 		top = newNode;
 		size++;
 		

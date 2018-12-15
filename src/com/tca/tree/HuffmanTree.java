@@ -115,7 +115,6 @@ public class HuffmanTree {
 	 * @return
 	 */
 	private int WPL(Node node) {
-		// TODO Auto-generated method stub
 		if (node == null) {
 			return 0;
 		}

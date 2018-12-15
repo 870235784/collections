@@ -400,7 +400,6 @@ public class LinkedList<T> {
 	}
 	
 	public Iterator<T> iterator() {
-		// TODO Auto-generated method stub
 		return new Iterator<T>() {
 			
 			private Node<T> consor = first;

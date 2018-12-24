@@ -455,9 +455,4 @@ public class RBTree<T extends Comparable<T>> {
 		}
 	}
 	
-	public static void main(String[] args) {
-		RBTree<Integer> tree = new RBTree<Integer>();
-		tree.insert(tree.root, new Node<>(1));
-		System.out.println(tree.root);
-	}
 }

@@ -2,7 +2,6 @@ package com.tca.tree;
 
 import com.tca.list.ArrayStack;
 import com.tca.list.LinkedQueue;
-import com.tca.tree.BinarySearchTree.Node;
 
 public class RBTree<T extends Comparable<T>> {
 	
@@ -285,19 +284,19 @@ public class RBTree<T extends Comparable<T>> {
 		}
 		rootNode.right = newRootNode.left;
 		
-		//step2 将newRootNode的父亲指向rootNode的父亲
+		//step2 rootNode的父亲的儿子指向newRootNode
 		if (rootNode.father != null) {
 			if (rootNode == rootNode.father.left) {
 				rootNode.father.left = newRootNode;
 			} else {
 				rootNode.father.right = newRootNode;
 			}
-			newRootNode.father = rootNode.father;
 		} else {
 			root = newRootNode;
 		}
 		
 		//step3 将rootNode的父亲指向newRootNode, 将newRootNode的左儿子指向rootNode
+		newRootNode.father = rootNode.father;
 		rootNode.father = newRootNode;
 		newRootNode.left = rootNode;
 	}
@@ -324,12 +323,12 @@ public class RBTree<T extends Comparable<T>> {
 			} else {
 				rootNode.father.right = newRootNode;
 			}
-			newRootNode.father = rootNode.father;
 		} else {
 			root = newRootNode;
 		}
 		
 		//step3
+		newRootNode.father = rootNode.father;
 		rootNode.father = newRootNode;
 		newRootNode.right = rootNode;
 	}

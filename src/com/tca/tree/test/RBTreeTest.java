@@ -5,20 +5,20 @@ import org.junit.Test;
 import com.tca.tree.RBTree;
 
 public class RBTreeTest {
-	@Test
+	/*@Test
 	public void test01() {
 		RBTree<Integer> tree = new RBTree<>();
 		//isEmpty
 		System.out.println(tree.isEmpty());
 		
 		//add
-		/*tree.insert(6);
+		tree.insert(6);
 		tree.insert(3);
 		tree.insert(8);
 		tree.insert(1);
 		tree.insert(9);
 		tree.insert(4);
-		tree.insert(6);*/
+		tree.insert(6);
 		tree.insert(316);
 		//isEmpty
 		System.out.println(tree.isEmpty());
@@ -28,12 +28,12 @@ public class RBTreeTest {
 		System.out.println(tree.getMin());
 		
 		//preOrder
-		/*tree.preOrder();
+		tree.preOrder();
 		System.out.println("================");
-		tree.inOrder();*/
+		tree.inOrder();
 		System.out.println("================");
 		tree.levelOrder();
-	}
+	}*/
 	
 	@Test
 	public void test02() {
@@ -49,6 +49,8 @@ public class RBTreeTest {
 		tree.insert(79);
 		tree.insert(221);
 		tree.insert(185);
+		/*
+		*/
 		
 		
 		//getMax getMin

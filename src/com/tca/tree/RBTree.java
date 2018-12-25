@@ -465,16 +465,33 @@ public class RBTree<T extends Comparable<T>> {
 	 */
 	public boolean remove(T value) {
 		// step1: 获取当前值对应的节点
-		Node<T> removeNode = get(value);
-		if (removeNode == null) {
+		Node<T> node = get(value);
+		if (node == null) {
 			return false;
 		}
 		
-		// step2: 删除节点
-		// 2.1 如果删除节点为叶子节点，则直接删除
-		if (removeNode.left == null && removeNode.right == null) {
-			
+		// step2: 如果被删除节点左右儿子都不为空，则需要找出后继节点替换删除节点
+		if (node.left != null && node.right != null) {
+			Node<T> rightMinNode = get(getMin(node.right)); // 找到后继节点
+			node.value = rightMinNode.value;// 将后继节点的值赋给原先需要被删除的节点
+			node = rightMinNode; // 此时后继节点变成了需要被删除的真正节点
 		}
+		
+		// 参考博客:https://www.cnblogs.com/tongy0/p/5460623.html
+		// 2.1 如果node是红色，那么只有一种情况
+		if (node.color == NodeColor.RED) {
+			if (node.father.left == node) {// 是左孩子
+				node.father.left = node.right;
+			} else {// 是右孩子
+				node.father.right = node.right;
+			}
+			node.right.father = node.father;
+			node.father = null;
+			node.right = null;
+			return true;
+		}
+		
+		
 		
 		return false;
 	}

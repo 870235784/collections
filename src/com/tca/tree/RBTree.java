@@ -401,7 +401,7 @@ public class RBTree<T extends Comparable<T>> {
 				grandFather.changeColor(); // 更改祖父节点颜色
 			}
 			
-			// 3.2.3 新增节点是祖父节点的右儿子的左儿子
+			// 3.2.4 新增节点是祖父节点的右儿子的左儿子
 			if (grandFather.right == father && father.left == newNode) {
 				rightRotation(father);// 右旋转父节点
 				leftRotation(grandFather); // 左旋转祖父节点
@@ -412,6 +412,10 @@ public class RBTree<T extends Comparable<T>> {
 		
 	}
 	
+	/**
+	 * 增加节点
+	 * @param newNode
+	 */
 	private void insert(Node<T> newNode) {
 		// 如果树为空, 则新增节点为根节点
 		if (isEmpty()) {
@@ -453,6 +457,53 @@ public class RBTree<T extends Comparable<T>> {
 				insert(rootNode.left, newNode);
 			}
 		}
+	}
+	
+	/**
+	 * 删除节点值为value的节点
+	 * @param value
+	 */
+	public boolean remove(T value) {
+		// step1: 获取当前值对应的节点
+		Node<T> removeNode = get(value);
+		if (removeNode == null) {
+			return false;
+		}
+		
+		// step2: 删除节点
+		// 2.1 如果删除节点为叶子节点，则直接删除
+		if (removeNode.left == null && removeNode.right == null) {
+			
+		}
+		
+		return false;
+	}
+	
+	/**
+	 * 根据value获取对应节点 —— 非递归的方式
+	 * @param value
+	 * @return
+	 */
+	private Node<T> get(T value) {
+		if (value == null) {
+			return null;
+		}
+		
+		Node<T> rootNode = root;
+		
+		while (rootNode != null) {
+			T rootNodeValue = rootNode.value;
+			int result = value.compareTo(rootNodeValue);
+			if (result == 0) {
+				return rootNode;
+			} else if (result < 0) {
+				rootNode = rootNode.left;
+			} else {
+				rootNode = rootNode.right;
+			}
+		}
+		
+		return null;
 	}
 	
 }

@@ -49,6 +49,7 @@ public class RBTreeTest {
 		tree.insert(79);
 		tree.insert(221);
 		tree.insert(185);
+		tree.insert(185);
 		/*
 		*/
 		

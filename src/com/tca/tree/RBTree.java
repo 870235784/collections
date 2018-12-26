@@ -477,25 +477,149 @@ public class RBTree<T extends Comparable<T>> {
 			node = rightMinNode; // 此时后继节点变成了需要被删除的真正节点
 		}
 		
-		// 参考博客:https://www.cnblogs.com/tongy0/p/5460623.html
-		// 2.1 如果node是红色，那么只有一种情况
-		if (node.color == NodeColor.RED) {
-			if (node.father.left == node) {// 是左孩子
-				node.father.left = node.right;
-			} else {// 是右孩子
-				node.father.right = node.right;
-			}
-			node.right.father = node.father;
-			node.father = null;
-			node.right = null;
+		// 如果待删除节点是根节点
+		if (root == node) {
+			root = null;
 			return true;
 		}
 		
+		//========================================================
+		// 删除的节点不是根节点
+		/*
+		 * 此时,被删除节点只可能有两种情况:
+		 * 	1.被删除节点没有子孩子
+		 *  2.被删除节点有一个子孩子
+		 */
 		
+		// 1.被删除的节点没有子孩子
+		if (node.left == null && node.right == null) {
+			// 1.1 如果被删除节点是红色，可以直接删除
+			if (node.color == NodeColor.RED) {
+				if (node.father.left == node) {
+					node.father.left = null;
+				} else {
+					node.father.right = null;
+				}
+				node.father = null;
+			} else {
+			// 1.2 被删除的节点是黑色, 需要先进行调整，再删除
+				// 调整
+				alterAfterRemove(root);
+				// 删除
+				if (node.father.left == node) {
+					node.father.left = null;
+				} else {
+					node.father.right = null;
+				}
+				node.father = null;
+			}
+			return true;
+		}
 		
-		return false;
+		// 2.被删除节点有一个子孩子 (则被删除的节点一定是黑色!!!)
+		// step1: 找到被删除的节点的唯一子孩子
+		Node<T> son = node.left == null? node.right: node.left;
+		
+		// step2: 删除被删除节点
+		if (node.father.left == node) {
+			node.father.left = son;
+		} else {
+			node.father.right = son;
+		}
+		
+		son.father = node.father;
+		node.left = node.right = node.father = null;//删除节点
+	
+		// step3: 调整子孩子(因为黑色父节点已经被删除，所以必然失衡)
+		alterAfterRemove(son);
+		
+		return true;
 	}
 	
+	/**
+	 * 调整rootNode节点
+	 * @param rootNode
+	 */
+	private void alterAfterRemove(Node<T> rootNode) {
+		while (rootNode != root && rootNode.color == NodeColor.BLACK) {
+			// 调整节点是左儿子
+			if (rootNode == rootNode.father.left) {
+				Node<T> brother = rootNode.getBrother();
+				
+				if(getColor(brother) == NodeColor.RED) {
+					brother.color = NodeColor.BLACK;
+					rootNode.father.color = NodeColor.RED;
+					leftRotation(rootNode.father);
+					brother = rootNode.father.right;
+				}
+				
+				if (getColor(brother.left) == NodeColor.BLACK && 
+						getColor(brother.right) == NodeColor.BLACK) {
+					brother.color = NodeColor.RED;
+					rootNode = rootNode.father;
+				} else {
+					if (getColor(brother.right) == NodeColor.BLACK) {
+						if (brother.left != null) {
+							brother.left.color = NodeColor.BLACK;
+						}
+						brother.color = NodeColor.RED;
+						rightRotation(brother);
+						brother = rootNode.father.right;
+					}
+					brother.color = rootNode.father.color; 
+					rootNode.father.color = NodeColor.BLACK;
+					if (brother.right != null) {
+						brother.right.color = NodeColor.BLACK;
+					}
+					leftRotation(rootNode.father);
+					rootNode = root;
+				}
+			} else {
+			// 调整节点是右儿子	
+				Node<T> brother = rootNode.getBrother();
+				if (getColor(brother) == NodeColor.RED) {
+					brother.color = NodeColor.BLACK;
+					rootNode.father.color = NodeColor.RED;
+					rightRotation(rootNode.father);
+					brother = rootNode.father.left;
+				}
+				
+				if (getColor(brother.right) == NodeColor.BLACK &&
+						getColor(brother.left) == NodeColor.BLACK) {
+					brother.color = NodeColor.RED;
+					rootNode = rootNode.father;
+				} else {
+					if (getColor(brother.left) == NodeColor.BLACK) {
+						if (brother.right != null) {
+							brother.right.color = NodeColor.BLACK;
+						}
+						brother.color = NodeColor.RED;
+						leftRotation(brother);
+						brother = rootNode.father.left;
+					}
+					brother.color = rootNode.father.color;
+					rootNode.father.color = NodeColor.BLACK;
+					if (brother.left != null) {
+						brother.left.color = NodeColor.BLACK;
+					}
+					rightRotation(rootNode.father);
+					rootNode = root;
+				}
+			}
+		}
+		
+		rootNode.color = NodeColor.BLACK;
+	}
+	
+	/**
+	 * 获取节点颜色 —— 节点为空时，为黑色
+	 * @param node
+	 * @return
+	 */
+	private NodeColor getColor(Node<T> node) {
+		return node == null? NodeColor.BLACK: node.color;
+	}
+
 	/**
 	 * 根据value获取对应节点 —— 非递归的方式
 	 * @param value

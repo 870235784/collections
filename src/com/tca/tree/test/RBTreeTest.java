@@ -37,7 +37,7 @@ public class RBTreeTest {
 	
 	@Test
 	public void test02() {
-		RBTree<Integer> tree = new RBTree<>();
+		/*RBTree<Integer> tree = new RBTree<>();
 		
 		tree.insert(316);
 		tree.insert(599);
@@ -50,8 +50,8 @@ public class RBTreeTest {
 		tree.insert(221);
 		tree.insert(185);
 		tree.insert(185);
-		/*
-		*/
+		
+		
 		
 		
 		//getMax getMin
@@ -59,10 +59,34 @@ public class RBTreeTest {
 		System.out.println("min = " + tree.getMin());
 		
 		//preOrder
-		/*tree.preOrder();
+		tree.preOrder();
 		System.out.println("================");
-		tree.inOrder();*/
+		tree.inOrder();
 		System.out.println("================");
+		tree.levelOrder();*/
+	}
+	
+	@Test
+	public void test03() {
+		RBTree<Integer> tree = new RBTree<>();
+			
+		tree.insert(825);
+		tree.insert(583);
+		tree.insert(523);
+		tree.insert(637);
+		tree.insert(925);
+		tree.insert(760);
+		tree.insert(679);
+		tree.insert(553);
+		tree.insert(822);
+		tree.insert(612);
+		
+		// 开始删除节点
+		tree.remove(679);
+		tree.remove(637);
+		tree.remove(612);
+		
 		tree.levelOrder();
+		
 	}
 }
